@@ -8,4 +8,4 @@
 #   http://developer.android.com/guide/developing/tools-proguard.html
 
 # Add any custom Keep rules here:
--keep class com.example.quakesafe.data.entities.** { *; }
+-keep class com.funteknoloji.quakesafe.data.entities.** { *; }

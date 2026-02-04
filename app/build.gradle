@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.quakesafe'
+    namespace 'com.funteknoloji.quakesafe'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.quakesafe"
+        applicationId "com.funteknoloji.quakesafe"
         minSdk 26
         targetSdk 34
         versionCode 1
