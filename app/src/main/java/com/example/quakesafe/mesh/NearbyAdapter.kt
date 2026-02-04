@@ -8,12 +8,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class NearbyAdapter(private val context: Context) : MeshAdapter {
     override val name: String = "NearbyConnections"
+    override var listener: MeshEventListener? = null
     private val connectionsClient = Nearby.getConnectionsClient(context)
     private val activeEndpoints = MutableStateFlow<List<String>>(emptyList())
 
     private val payloadCallback = object : PayloadCallback() {
         override fun onPayloadReceived(endpointId: String, payload: Payload) {
-            // Handle received data
+            payload.asBytes()?.let { listener?.onDataReceived(endpointId, it) }
         }
 
         override fun onPayloadTransferUpdate(endpointId: String, update: PayloadTransferUpdate) {}
@@ -27,11 +28,13 @@ class NearbyAdapter(private val context: Context) : MeshAdapter {
         override fun onConnectionResult(endpointId: String, result: ConnectionResolution) {
             if (result.status.isSuccess) {
                 activeEndpoints.value += endpointId
+                listener?.onNodeConnected(endpointId)
             }
         }
 
         override fun onDisconnected(endpointId: String) {
             activeEndpoints.value -= endpointId
+            listener?.onNodeDisconnected(endpointId)
         }
     }
 

@@ -4,12 +4,19 @@ import kotlinx.coroutines.flow.Flow
 
 interface MeshAdapter {
     val name: String
+    var listener: MeshEventListener?
     fun startDiscovery()
     fun stopDiscovery()
     fun sendMessage(targetId: String, payload: ByteArray)
     fun broadcastMessage(payload: ByteArray)
     fun getActiveNodes(): Flow<List<String>>
     fun isSupported(): Boolean
+}
+
+interface MeshEventListener {
+    fun onDataReceived(senderId: String, payload: ByteArray)
+    fun onNodeConnected(nodeId: String)
+    fun onNodeDisconnected(nodeId: String)
 }
 
 data class MeshPacket(

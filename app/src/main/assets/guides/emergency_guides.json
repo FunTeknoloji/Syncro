@@ -1,18 +1,39 @@
 [
   {
-    "category": "Earthquake",
+    "category": "Earthquake: During Shaking",
     "steps": [
       "DROP down onto your hands and knees.",
-      "COVER your head and neck with your arms.",
-      "HOLD ON to your shelter until shaking stops."
+      "COVER your head and neck with your arms. If a sturdy table is nearby, crawl under it.",
+      "HOLD ON to your shelter until shaking stops. If no shelter, stay against an interior wall.",
+      "STAY AWAY from glass, windows, outside doors and walls, and anything that could fall.",
+      "DO NOT use elevators."
     ]
   },
   {
-    "category": "Communication",
+    "category": "Earthquake: After Shaking",
     "steps": [
-      "Use PTT button to talk to nearby survivors.",
-      "Emergency messages are relayed automatically.",
-      "Keep the app in the foreground for better mesh stability."
+      "Check yourself and others for injuries.",
+      "Check for gas leaks. If you smell gas, turn off the main gas valve.",
+      "Expect aftershocks. These are often less intense but can cause additional damage.",
+      "Use the Mesh Chat to report your status to others nearby.",
+      "Listen to emergency broadcasts if possible."
+    ]
+  },
+  {
+    "category": "Mesh Network Tips",
+    "steps": [
+      "Keep the app open and mesh active to help relay messages for others.",
+      "Battery low? Switch to 'Power Save' in settings (coming soon) or disable non-essential tools.",
+      "Hotspot Relay mode allows devices that can't see each other to connect through you.",
+      "PTT (Push-to-Talk) is best for quick status checks without typing."
+    ]
+  },
+  {
+    "category": "First Aid: Bleeding",
+    "steps": [
+      "Apply direct pressure to the wound with a clean cloth.",
+      "Maintain pressure until bleeding stops.",
+      "If bleeding is severe and on a limb, consider a tourniquet if trained."
     ]
   }
 ]

@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun MainScreen(viewModel: MeshViewModel = viewModel()) {
     val isRecording by viewModel.isRecording.collectAsState()
     val isMeshActive by viewModel.isMeshActive.collectAsState()
+    val isSirenOn by viewModel.isSirenOn.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -57,13 +58,35 @@ fun MainScreen(viewModel: MeshViewModel = viewModel()) {
             }
         }
 
-        // Emergency Tools
+        // Emergency Tools (Quick Access)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button(onClick = {}, colors = ButtonDefaults.buttonColors(containerColor = Color.Red)) {
-                Text("SIREN")
+            Button(
+                onClick = { viewModel.toggleSiren() },
+                colors = ButtonDefaults.buttonColors(containerColor = if (isSirenOn) Color.Black else Color.Red)
+            ) {
+                Text(if (isSirenOn) "STOP SIREN" else "SIREN")
             }
-            Button(onClick = {}) {
-                Text("STROBE")
+            Button(onClick = { viewModel.toggleFlashlight() }) {
+                Text("FLASHLIGHT")
+            }
+        }
+
+        // Emergency Actions
+        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Button(
+                onClick = { /* Intent to dial 112/911 */ },
+                modifier = Modifier.fillMaxWidth().height(60.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB71C1C))
+            ) {
+                Text("EMERGENCY CALL (112)", fontSize = 18.sp, color = Color.White)
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = { viewModel.sendEmergencySms("HELP! I am in an earthquake zone. My status is: OK.") },
+                modifier = Modifier.fillMaxWidth().height(60.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE65100))
+            ) {
+                Text("SEND HELP SMS TO CONTACTS", fontSize = 18.sp, color = Color.White)
             }
         }
     }

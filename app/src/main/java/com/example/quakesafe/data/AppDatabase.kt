@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.quakesafe.data.dao.ContactDao
 import com.example.quakesafe.data.dao.MeshNodeDao
 import com.example.quakesafe.data.dao.MessageDao
+import com.example.quakesafe.data.entities.ContactEntity
 import com.example.quakesafe.data.entities.MeshNodeEntity
 import com.example.quakesafe.data.entities.MessageEntity
 
-@Database(entities = [MessageEntity::class, MeshNodeEntity::class], version = 1, exportSchema = false)
+@Database(entities = [MessageEntity::class, MeshNodeEntity::class, ContactEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun messageDao(): MessageDao
     abstract fun meshNodeDao(): MeshNodeDao
+    abstract fun contactDao(): ContactDao
 
     companion object {
         @Volatile
@@ -24,7 +27,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "quake_safe_db"
-                ).build()
+                )
+                .fallbackToDestructiveMigration()
+                .build()
                 INSTANCE = instance
                 instance
             }

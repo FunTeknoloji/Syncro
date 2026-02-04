@@ -11,6 +11,7 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.AudioTrack
 import android.media.MediaRecorder
+import android.os.Binder
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import kotlinx.coroutines.CoroutineScope
@@ -91,5 +92,11 @@ class VoicePTTService : Service() {
         audioTrack?.write(decompressed, 0, decompressed.size)
     }
 
-    override fun onBind(intent: Intent?): IBinder? = null
+    inner class LocalBinder : Binder() {
+        fun getService(): VoicePTTService = this@VoicePTTService
+    }
+
+    private val binder = LocalBinder()
+
+    override fun onBind(intent: Intent?): IBinder = binder
 }

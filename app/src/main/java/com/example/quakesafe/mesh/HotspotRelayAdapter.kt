@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class HotspotRelayAdapter(private val context: Context) : MeshAdapter {
     override val name: String = "HotspotRelay"
+    override var listener: MeshEventListener? = null
     private val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
     private var hotspotReservation: WifiManager.LocalOnlyHotspotReservation? = null
     private val activeNodes = MutableStateFlow<List<String>>(emptyList())

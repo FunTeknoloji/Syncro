@@ -1,20 +1,23 @@
 package com.example.quakesafe.mesh
 
 import android.content.Context
+import com.example.quakesafe.data.AppDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-class MeshManager(private val context: Context) {
+class MeshManager(private val context: Context) : MeshEventListener {
     private val adapters = mutableListOf<MeshAdapter>()
 
     private val _connectedNodes = MutableStateFlow<List<String>>(emptyList())
     val connectedNodes: StateFlow<List<String>> = _connectedNodes
 
     init {
-        // Initialize adapters
-        // adapters.add(NearbyAdapter(context))
-        // adapters.add(WifiP2pAdapter(context))
-        // adapters.add(BluetoothAdapter(context))
+        adapters.add(NearbyAdapter(context))
+        adapters.add(WifiP2pAdapter(context))
+        adapters.add(BluetoothAdapter(context))
+        adapters.add(HotspotRelayAdapter(context))
+        adapters.forEach { it.listener = this }
     }
 
     fun startMesh() {
@@ -41,7 +44,15 @@ class MeshManager(private val context: Context) {
         }
     }
 
-    fun onDataReceived(senderId: String, payload: ByteArray) {
+    override fun onNodeConnected(nodeId: String) {
+        _connectedNodes.value += nodeId
+    }
+
+    override fun onNodeDisconnected(nodeId: String) {
+        _connectedNodes.value -= nodeId
+    }
+
+    override fun onDataReceived(senderId: String, payload: ByteArray) {
         val decryptedPayload = if (sharedKeys.containsKey(senderId)) {
             try {
                 SecurityManager.decrypt(payload, sharedKeys[senderId]!!)
@@ -51,7 +62,25 @@ class MeshManager(private val context: Context) {
         } else {
             payload
         }
-        // Handle decrypted data (e.g., pass to VoicePTTService or MessageDao)
+
+        // Parse MeshPacket (Simplified: assume it's a JSON string for now if type is Text)
+        val messageContent = String(decryptedPayload)
+        // In a real app, you'd deserialize the MeshPacket object
+
+        // Save to Database (should use a repository)
+        val db = AppDatabase.getDatabase(context)
+        kotlinx.coroutines.MainScope().launch {
+            db.messageDao().insertMessage(
+                com.example.quakesafe.data.entities.MessageEntity(
+                    senderId = senderId,
+                    content = messageContent,
+                    timestamp = System.currentTimeMillis(),
+                    priority = 0,
+                    isSent = false,
+                    isDelivered = true
+                )
+            )
+        }
     }
 
     // TODO: Implement multi-hop routing and packet relaying

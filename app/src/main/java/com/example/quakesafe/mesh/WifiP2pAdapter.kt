@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class WifiP2pAdapter(private val context: Context) : MeshAdapter {
     override val name: String = "WiFiDirect"
+    override var listener: MeshEventListener? = null
     private val manager: WifiP2pManager? = context.getSystemService(Context.WIFI_P2P_SERVICE) as? WifiP2pManager
     private val channel = manager?.initialize(context, context.mainLooper, null)
     private val activeNodes = MutableStateFlow<List<String>>(emptyList())

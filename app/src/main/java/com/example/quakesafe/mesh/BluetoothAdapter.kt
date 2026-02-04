@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class BluetoothAdapter(private val context: Context) : MeshAdapter {
     override val name: String = "Bluetooth"
+    override var listener: MeshEventListener? = null
     private val activeNodes = MutableStateFlow<List<String>>(emptyList())
 
     override fun startDiscovery() {
