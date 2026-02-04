@@ -1,0 +1,39 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main", "master", "quakesafe-funteknoloji-v3", "quakesafe-offline-mesh-5108990792941413698" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew || true
+
+    - name: Build with Gradle
+      run: ./gradlew assembleRelease bundleRelease
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-apk
+        path: app/build/outputs/apk/release/app-release.apk
+
+    - name: Upload AAB
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-aab
+        path: app/build/outputs/bundle/release/app-release.aab
