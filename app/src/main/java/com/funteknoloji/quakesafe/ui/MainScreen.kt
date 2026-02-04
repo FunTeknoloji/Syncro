@@ -2,6 +2,8 @@ package com.funteknoloji.quakesafe.ui
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,72 +23,117 @@ fun MainScreen(viewModel: MeshViewModel = viewModel()) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         // Status Bar
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text("Mesh: Online", color = Color.Green)
-            Text("Nodes: 5")
-            Text("Battery: 85%")
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text("Mesh: Aktif", color = Color.Green, style = MaterialTheme.typography.titleMedium)
+                    Text("Cihazlar: 5", style = MaterialTheme.typography.bodySmall)
+                }
+                Text("Pil: %85", style = MaterialTheme.typography.titleLarge)
+            }
         }
+
+        Spacer(modifier = Modifier.weight(1f))
 
         // PTT Button
         Box(
             modifier = Modifier
-                .size(200.dp)
+                .size(240.dp)
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onPress = {
-                            viewModel.startPTT()
-                            tryAwaitRelease()
-                            viewModel.stopPTT()
+                            try {
+                                viewModel.startPTT()
+                                tryAwaitRelease()
+                            } finally {
+                                viewModel.stopPTT()
+                            }
                         }
                     )
                 }
-                .padding(10.dp),
+                .padding(12.dp),
             contentAlignment = Alignment.Center
         ) {
+            // Outer ring
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 shape = androidx.compose.foundation.shape.CircleShape,
-                color = if (isRecording) Color.Red else Color.DarkGray,
-                shadowElevation = 8.dp
+                color = if (isRecording) Color.Red.copy(alpha = 0.2f) else Color.Gray.copy(alpha = 0.1f),
+            ) {}
+
+            // Inner button
+            Surface(
+                modifier = Modifier.size(180.dp),
+                shape = androidx.compose.foundation.shape.CircleShape,
+                color = if (isRecording) Color(0xFFD32F2F) else Color(0xFF424242),
+                shadowElevation = 12.dp,
+                tonalElevation = 4.dp
             ) {
                 Box(contentAlignment = Alignment.Center) {
-                    Text(if (isRecording) "RECORDING" else "PUSH TO TALK", fontSize = 20.sp, color = Color.White)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(
+                            Icons.Default.Mic,
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp),
+                            tint = Color.White
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            if (isRecording) "KAYDEDİLİYOR" else "BAS KONUŞ",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = Color.White
+                        )
+                    }
                 }
             }
         }
 
-        // Emergency Tools (Quick Access)
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button(
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Quick Tools
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(
                 onClick = { viewModel.toggleSiren() },
-                colors = ButtonDefaults.buttonColors(containerColor = if (isSirenOn) Color.Black else Color.Red)
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = if (isSirenOn) Color.Red else Color.White)
             ) {
-                Text(if (isSirenOn) "STOP SIREN" else "SIREN")
+                Text(if (isSirenOn) "SİREN AÇIK" else "SİREN")
             }
-            Button(onClick = { viewModel.toggleFlashlight() }) {
-                Text("FLASHLIGHT")
+            OutlinedButton(
+                onClick = { viewModel.toggleFlashlight() },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("FENER")
             }
         }
 
         // Emergency Actions
-        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             Button(
                 onClick = { /* Intent to dial 112/911 */ },
                 modifier = Modifier.fillMaxWidth().height(60.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB71C1C))
             ) {
-                Text("EMERGENCY CALL (112)", fontSize = 18.sp, color = Color.White)
+                Text("ACİL ÇAĞRI (112)", fontSize = 18.sp, color = Color.White)
             }
             Spacer(modifier = Modifier.height(8.dp))
             Button(
-                onClick = { viewModel.sendEmergencySms("HELP! I am in an earthquake zone. My status is: OK.") },
+                onClick = { viewModel.sendEmergencySms("YARDIM! Deprem bölgesindeyim. Durumum: İYİ.") },
                 modifier = Modifier.fillMaxWidth().height(60.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE65100))
             ) {
-                Text("SEND HELP SMS TO CONTACTS", fontSize = 18.sp, color = Color.White)
+                Text("REHBERE YARDIM SMS'İ GÖNDER", fontSize = 18.sp, color = Color.White)
             }
         }
     }

@@ -15,31 +15,41 @@ fun SettingsScreen(viewModel: MeshViewModel = viewModel()) {
     val isMeshActive by viewModel.isMeshActive.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Settings", style = MaterialTheme.typography.headlineMedium)
+        Text("Ayarlar", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text("Font Size: ${fontSize.toInt()}sp")
-        Slider(
-            value = fontSize,
-            onValueChange = { viewModel.setFontSize(it) },
-            valueRange = 12f..30f
-        )
-
-        Divider(modifier = Modifier.padding(vertical = 16.dp))
-
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Text("Mesh Networking", modifier = Modifier.weight(1f))
-            Switch(checked = isMeshActive, onCheckedChange = { viewModel.toggleMesh(it) })
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Görünüm", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("Yazı Tipi Boyutu: ${fontSize.toInt()}sp")
+                Slider(
+                    value = fontSize,
+                    onValueChange = { viewModel.setFontSize(it) },
+                    valueRange = 12f..30f
+                )
+            }
         }
 
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Text("Hotspot Relay Mode", modifier = Modifier.weight(1f))
-            Switch(checked = isHotspotRelayEnabled, onCheckedChange = { viewModel.toggleHotspotRelay(it) })
-        }
+        Spacer(modifier = Modifier.height(16.dp))
 
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Ağ ve Bağlantı", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                    Text("Mesh Ağ İletişimi", modifier = Modifier.weight(1f))
+                    Switch(checked = isMeshActive, onCheckedChange = { viewModel.toggleMesh(it) })
+                }
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                    Text("Hotspot Aktarma Modu", modifier = Modifier.weight(1f))
+                    Switch(checked = isHotspotRelayEnabled, onCheckedChange = { viewModel.toggleHotspotRelay(it) })
+                }
+            }
+        }
         Spacer(modifier = Modifier.weight(1f))
 
-        Text("Device ID: ${android.os.Build.MODEL}", style = MaterialTheme.typography.labelMedium)
-        Text("App Version: 1.0.0-PRO", style = MaterialTheme.typography.labelMedium)
+        Text("Cihaz Kimliği: ${android.os.Build.MODEL}", style = MaterialTheme.typography.labelMedium)
+        Text("Uygulama Sürümü: 1.0.0-PRO", style = MaterialTheme.typography.labelMedium)
     }
 }

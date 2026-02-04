@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MeshMapScreen() {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Mesh Topology View", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
+        Text("Mesh Topoloji Görünümü", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(20.dp))
 
         Canvas(modifier = Modifier.fillMaxWidth().height(400.dp)) {

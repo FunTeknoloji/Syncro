@@ -69,7 +69,7 @@ class MeshManager(private val context: Context) : MeshEventListener {
 
         // Save to Database (should use a repository)
         val db = AppDatabase.getDatabase(context)
-        kotlinx.coroutines.MainScope().launch {
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
             db.messageDao().insertMessage(
                 com.funteknoloji.quakesafe.data.entities.MessageEntity(
                     senderId = senderId,

@@ -1,39 +1,39 @@
 [
   {
-    "category": "Earthquake: During Shaking",
+    "category": "Deprem: Sarsıntı Sırasında",
     "steps": [
-      "DROP down onto your hands and knees.",
-      "COVER your head and neck with your arms. If a sturdy table is nearby, crawl under it.",
-      "HOLD ON to your shelter until shaking stops. If no shelter, stay against an interior wall.",
-      "STAY AWAY from glass, windows, outside doors and walls, and anything that could fall.",
-      "DO NOT use elevators."
+      "ÇÖK: Yere çökün, elleriniz ve dizleriniz üzerine kapanın.",
+      "KAPAN: Başınızı ve boynunuzu kollarınızla koruyun. Yakınınızda sağlam bir masa varsa altına girin.",
+      "TUTUN: Sarsıntı durana kadar sığınağınıza tutunun. Sığınacak yer yoksa bir iç duvara yaslanın.",
+      "Pencerelerden, camlardan, dış kapılardan ve duvarlardan uzak durun.",
+      "Asansörleri asla kullanmayın."
     ]
   },
   {
-    "category": "Earthquake: After Shaking",
+    "category": "Deprem: Sarsıntı Sonrasında",
     "steps": [
-      "Check yourself and others for injuries.",
-      "Check for gas leaks. If you smell gas, turn off the main gas valve.",
-      "Expect aftershocks. These are often less intense but can cause additional damage.",
-      "Use the Mesh Chat to report your status to others nearby.",
-      "Listen to emergency broadcasts if possible."
+      "Kendinizi ve başkalarını yaralanma açısından kontrol edin.",
+      "Gaz sızıntılarını kontrol edin. Gaz kokusu alırsanız ana gaz vanasını kapatın.",
+      "Artçı sarsıntılara hazırlıklı olun. Bunlar genellikle daha az şiddetlidir ancak ek hasara neden olabilir.",
+      "Durumunuzu başkalarına bildirmek için Mesh Mesajlar'ı kullanın.",
+      "Mümkünse acil durum yayınlarını dinleyin."
     ]
   },
   {
-    "category": "Mesh Network Tips",
+    "category": "Mesh Ağ İpuçları",
     "steps": [
-      "Keep the app open and mesh active to help relay messages for others.",
-      "Battery low? Switch to 'Power Save' in settings (coming soon) or disable non-essential tools.",
-      "Hotspot Relay mode allows devices that can't see each other to connect through you.",
-      "PTT (Push-to-Talk) is best for quick status checks without typing."
+      "Başkalarının mesajlarını iletmeye yardımcı olmak için uygulamayı açık ve mesh ağını aktif tutun.",
+      "Piliniz mi azaldı? Gereksiz araçları kapatın veya güç tasarrufu modunu (yakında) kullanın.",
+      "Hotspot Aktarma modu, birbirini göremeyen cihazların sizin üzerinizden bağlanmasını sağlar.",
+      "BAS KONUŞ (PTT), yazmaya vakit olmadığında hızlı durum kontrolleri için en iyisidir."
     ]
   },
   {
-    "category": "First Aid: Bleeding",
+    "category": "İlk Yardım: Kanama",
     "steps": [
-      "Apply direct pressure to the wound with a clean cloth.",
-      "Maintain pressure until bleeding stops.",
-      "If bleeding is severe and on a limb, consider a tourniquet if trained."
+      "Temiz bir bezle yaranın üzerine doğrudan baskı uygulayın.",
+      "Kanama durana kadar baskıyı sürdürün.",
+      "Kanama şiddetliyse ve bir uzuv üzerindeyse, eğitimliyseniz turnike uygulamayı düşünün."
     ]
   }
 ]

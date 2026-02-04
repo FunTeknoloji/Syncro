@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">QuakeSafe Offline</string>
+    <string name="mesh_online">Mesh: Çevrimiçi</string>
+    <string name="mesh_offline">Mesh: Çevrimdışı</string>
+    <string name="nodes">Düğüm Sayısı</string>
+    <string name="battery">Pil</string>
+    <string name="ptt_button">BAS KONUŞ</string>
+    <string name="ptt_recording">KAYDEDİLİYOR...</string>
+    <string name="emergency_call">ACİL ÇAĞRI (112)</string>
+    <string name="send_help_sms">YARDIM SMS\'İ GÖNDER</string>
+    <string name="home">Ana Sayfa</string>
+    <string name="chat">Mesajlar</string>
+    <string name="tools">Araçlar</string>
+    <string name="guides">Rehberler</string>
+    <string name="contacts">Rehber</string>
+    <string name="map">Harita</string>
+    <string name="settings">Ayarlar</string>
+    <string name="siren">SİREN</string>
+    <string name="flashlight">FENER</string>
+    <string name="strobe">ÇAKAR</string>
+    <string name="police_mode">POLİS MODU</string>
+    <string name="screen_light">EKRAN IŞIĞI</string>
 </resources>

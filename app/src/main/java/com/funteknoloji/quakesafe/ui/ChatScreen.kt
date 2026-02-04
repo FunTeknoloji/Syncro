@@ -18,7 +18,7 @@ fun ChatScreen(viewModel: MeshViewModel = viewModel()) {
     var textState by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Mesh Chat", style = MaterialTheme.typography.headlineMedium)
+        Text("Mesh Mesajlar", style = MaterialTheme.typography.headlineMedium)
 
         LazyColumn(
             modifier = Modifier.weight(1f).fillMaxWidth(),
@@ -44,7 +44,7 @@ fun ChatScreen(viewModel: MeshViewModel = viewModel()) {
                 value = textState,
                 onValueChange = { textState = it },
                 modifier = Modifier.weight(1f),
-                placeholder = { Text("Type a message...") }
+                placeholder = { Text("Mesaj yazın...") }
             )
             IconButton(onClick = {
                 if (textState.isNotBlank()) {

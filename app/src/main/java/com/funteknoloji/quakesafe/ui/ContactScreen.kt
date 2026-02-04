@@ -18,20 +18,21 @@ fun ContactScreen(viewModel: MeshViewModel = viewModel()) {
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text("Contacts", style = MaterialTheme.typography.headlineMedium)
+            Text("Kişiler", style = MaterialTheme.typography.headlineMedium)
             IconButton(onClick = { showDialog = true }) {
-                Icon(Icons.Default.Add, contentDescription = "Add Contact")
+                Icon(Icons.Default.Add, contentDescription = "Kişi Ekle")
             }
         }
 
-        LazyColumn {
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(contacts) { contact ->
-                ListItem(
-                    headlineContent = { Text(contact.name) },
-                    supportingContent = { Text(contact.phoneNumber) },
-                    trailingContent = { if (contact.isEmergencyContact) Text("🚨", style = MaterialTheme.typography.headlineSmall) }
-                )
-                Divider()
+                Card(modifier = Modifier.fillMaxWidth()) {
+                    ListItem(
+                        headlineContent = { Text(contact.name, style = MaterialTheme.typography.titleMedium) },
+                        supportingContent = { Text(contact.phoneNumber) },
+                        trailingContent = { if (contact.isEmergencyContact) Text("🚨", style = MaterialTheme.typography.headlineSmall) }
+                    )
+                }
             }
         }
 
@@ -55,22 +56,22 @@ fun AddContactDialog(onDismiss: () -> Unit, onConfirm: (String, String, Boolean)
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Add Contact") },
+        title = { Text("Kişi Ekle") },
         text = {
             Column {
-                TextField(value = name, onValueChange = { name = it }, label = { Text("Name") })
-                TextField(value = phone, onValueChange = { phone = it }, label = { Text("Phone") })
+                TextField(value = name, onValueChange = { name = it }, label = { Text("İsim") })
+                TextField(value = phone, onValueChange = { phone = it }, label = { Text("Telefon") })
                 Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                     Checkbox(checked = isEmergency, onCheckedChange = { isEmergency = it })
-                    Text("Emergency Contact")
+                    Text("Acil Durum Kişisi")
                 }
             }
         },
         confirmButton = {
-            Button(onClick = { onConfirm(name, phone, isEmergency) }) { Text("Add") }
+            Button(onClick = { onConfirm(name, phone, isEmergency) }) { Text("Ekle") }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            TextButton(onClick = onDismiss) { Text("İptal") }
         }
     )
 }

@@ -108,14 +108,20 @@ class MeshViewModel(application: Application) : AndroidViewModel(application) {
 
     fun sendEmergencySms(message: String) {
         viewModelScope.launch {
-            val smsManager = getApplication<Application>().getSystemService(SmsManager::class.java)
-            val list = db.contactDao().getEmergencyContacts().first()
-            list.forEach { contact ->
-                try {
-                    smsManager.sendTextMessage(contact.phoneNumber, null, message, null, null)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+            try {
+                val smsManager = getApplication<Application>().getSystemService(SmsManager::class.java)
+                val list = db.contactDao().getEmergencyContacts().first()
+                if (list.isEmpty()) return@launch
+
+                list.forEach { contact ->
+                    try {
+                        smsManager?.sendTextMessage(contact.phoneNumber, null, message, null, null)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

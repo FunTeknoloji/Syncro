@@ -19,43 +19,43 @@ fun ToolsScreen(viewModel: MeshViewModel = viewModel()) {
     var isPoliceMode by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Emergency Tools", style = MaterialTheme.typography.headlineMedium)
+        Text("Acil Durum Araçları", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
 
         if (isPoliceMode) {
             PoliceFlasher()
+            Spacer(modifier = Modifier.height(16.dp))
         }
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item {
-                ToolButton("Siren", isSirenOn, Color.Red) { viewModel.toggleSiren() }
-            }
-            item {
-                ToolButton("Flashlight", isFlashlightOn, Color.Yellow) { viewModel.toggleFlashlight() }
-            }
-            item {
-                ToolButton("Strobe", false, Color.White) { /* Add strobe toggle to VM */ }
-            }
-            item {
-                ToolButton("Police Mode", isPoliceMode, Color.Blue) { isPoliceMode = !isPoliceMode }
-            }
-            item {
-                ToolButton("Screen Light", false, Color.Cyan) { /* Max brightness white screen */ }
-            }
+        Text("Sinyalizasyon", style = MaterialTheme.typography.titleMedium)
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            ToolButton("Siren", isSirenOn, Color.Red, Modifier.weight(1f)) { viewModel.toggleSiren() }
+            ToolButton("Fener", isFlashlightOn, Color.Yellow, Modifier.weight(1f)) { viewModel.toggleFlashlight() }
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            ToolButton("Çakar", false, Color.White, Modifier.weight(1f)) { /* Add strobe toggle to VM */ }
+            ToolButton("Polis Modu", isPoliceMode, Color.Blue, Modifier.weight(1f)) { isPoliceMode = !isPoliceMode }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Diğer", style = MaterialTheme.typography.titleMedium)
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ToolButton("Ekran Işığı", false, Color.Cyan, Modifier.fillMaxWidth()) { /* Max brightness white screen */ }
     }
 }
 
 @Composable
-fun ToolButton(name: String, isActive: Boolean, activeColor: Color, onClick: () -> Unit) {
+fun ToolButton(name: String, isActive: Boolean, activeColor: Color, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Button(
         onClick = onClick,
-        modifier = Modifier.height(100.dp),
+        modifier = modifier.height(100.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (isActive) activeColor else Color.DarkGray,
             contentColor = if (isActive) Color.Black else Color.White

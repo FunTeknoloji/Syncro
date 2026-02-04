@@ -42,17 +42,23 @@ fun GuideScreen() {
 
     LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         item {
-            Text("Emergency Guides", style = MaterialTheme.typography.headlineMedium)
+            Text("Afet Rehberleri", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(16.dp))
         }
         items(guides) { guide ->
-            Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(guide.category, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(guide.category, style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
+                    Spacer(modifier = Modifier.height(12.dp))
                     guide.steps.forEachIndexed { index, step ->
-                        Text("${index + 1}. $step", style = MaterialTheme.typography.bodyMedium)
-                        Spacer(modifier = Modifier.height(4.dp))
+                        Row(modifier = Modifier.padding(vertical = 4.dp)) {
+                            Text("${index + 1}.", style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(step, style = MaterialTheme.typography.bodyLarge)
+                        }
                     }
                 }
             }

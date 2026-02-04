@@ -49,9 +49,13 @@ class HardwareManager(private val context: Context) {
 
     fun playSiren(resourceId: Int) {
         stopSiren()
-        mediaPlayer = MediaPlayer.create(context, resourceId).apply {
-            isLooping = true
-            start()
+        try {
+            mediaPlayer = MediaPlayer.create(context, resourceId)?.apply {
+                isLooping = true
+                start()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
