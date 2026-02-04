@@ -1,0 +1,18 @@
+[
+  {
+    "category": "Earthquake",
+    "steps": [
+      "DROP down onto your hands and knees.",
+      "COVER your head and neck with your arms.",
+      "HOLD ON to your shelter until shaking stops."
+    ]
+  },
+  {
+    "category": "Communication",
+    "steps": [
+      "Use PTT button to talk to nearby survivors.",
+      "Emergency messages are relayed automatically.",
+      "Keep the app in the foreground for better mesh stability."
+    ]
+  }
+]

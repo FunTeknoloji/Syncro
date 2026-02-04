@@ -1,0 +1,2 @@
+rootProject.name = "QuakeSafe Offline"
+include ':app'
